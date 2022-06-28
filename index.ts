@@ -5,6 +5,13 @@ let rl = readline.createInterface({
    output: process.stdout
 });
 
+function max(a: number, b: number) {
+    if (a > b) {
+        return a;
+    }
+    return b;
+}
+
 function check(n: number, d: number, s: string) {
     if (n % d == 0) {
         process.stdout.write(s);
@@ -30,17 +37,23 @@ rl.question('Insert number: ', (answer) => {
     for (let index = 1; index <= n; index++) {
         let printed = 0;
         if (index % 17 == 0) {
-            printed = check_11_13(index, "BongFezz", "Bong");
-            printed = check(index, 7, "Bang");
-            printed = check(index, 5, "Buzz");
-            printed = check(index, 13, "Fezz");
-            printed = check(index, 3, "Fizz");
+            printed = max(printed, check_11_13(index, "BongFezz", "Bong"));
+            if (printed == 1) {
+                continue;
+            }
+            printed = max(printed, check(index, 7, "Bang"));
+            printed = max(printed, check(index, 5, "Buzz"));
+            printed = max(printed, check(index, 13, "Fezz"));
+            printed = max(printed, check(index, 3, "Fizz"));
         } else {
-            printed = check_11_13(index, "FezzBong", "Bong");
-            printed = check(index, 3, "Fizz");
-            printed = check(index, 13, "Fezz");
-            printed = check(index, 5, "Buzz");
-            printed = check(index, 7, "Bang");
+            printed = max(printed, check_11_13(index, "FezzBong", "Bong"));
+            if (printed == 1) {
+                continue;
+            }
+            printed = max(printed, check(index, 3, "Fizz"));
+            printed = max(printed, check(index, 13, "Fezz"));
+            printed = max(printed, check(index, 5, "Buzz"));
+            printed = max(printed, check(index, 7, "Bang"));
         }
         if (printed == 0) {
             process.stdout.write(index.toString());
